@@ -1,0 +1,807 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.app {
+  text-align: center;
+  padding: 20px;
+  background-image: url('./images/d00781cd9bc67d62125f36e3c0cacc5c.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+}
+
+
+main {
+  text-align: left;
+  margin-top: 50px;
+  padding: 30px;
+  font-style: italic;
+}
+
+p{
+  font-size: 30px;
+}
+
+.plan-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 50px;
+  
+}
+
+.plan-button:hover{
+  background-color: orange;
+}
+
+
+
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 150px;
+  padding: px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+nav ul li a:hover {
+  background-color: white;
+}
+
+
+.logo {
+  width: 100px;
+  height: auto;
+ 
+}
+
+.Detail{
+  margin-left: 400px;
+  margin-top:100px;
+  font-style: italic;
+ 
+}
+
+
+.logo-container img {
+  width: 50px; /* Adjust the width as needed */
+  height: auto;
+  margin-right: 10px;
+  margin-left: 150px;
+  margin-top: 150px;
+  border-radius: 50%;
+}
+
+
+header nav {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.log-button {
+  padding: 15px 30px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 30px; /* Adjust the margin value as needed */
+}
+
+
+
+html{
+  scroll-behavior: smooth;
+}
+
+
+
+.about-us-page{
+  background-image: url("./images/Gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color : black;
+  padding: 20px;
+  margin-top: 50px;
+  
+}
+
+.services-page{
+  background-image: url("./images/Gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color : black;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.services-page {
+  padding: 20px;
+  text-align: center;
+}
+
+.service-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates three equal columns */
+  gap: 10px; /* Space between images */
+  justify-content: center; /* Center the grid horizontally */
+}
+
+.service-item {
+  text-align: center; /* Center-align text and buttons */
+}
+
+.service-image {
+  width: 100%; /* Make images responsive to column width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+  object-fit: cover; /* Ensures the image covers the box while maintaining aspect ratio */
+}
+
+.service-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 40px;
+  margin-right: 50px;
+
+}
+
+
+
+.service-button:hover {
+  background-color: orange; /* Darker shade on hover */
+  
+}
+
+.corporate-image-container {
+  text-align: center; /* Center-align corporate image and button */
+  margin-top: 20px; /* Space above the corporate image */
+}
+
+.corporate-image {
+  width: 100%; /* Make image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+h2{
+  font-size: 40px;
+  font-style: italic;
+}
+
+.service-heading{
+  font-size: 30px;
+  font-style: italic;
+}
+
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.explore-all-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 100px;
+ 
+}
+
+.explore-all-button:hover{
+ background-color: orange; 
+}
+
+
+
+.birthday-page {
+  background-image: url("./images/Gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color : black;
+  padding: 20px;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+
+.page-header {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.venue-images {
+  display: flex;
+  gap: 90px;
+  margin-top: 50px;
+  margin-bottom: 150px;
+  margin-left: 80px;
+}
+
+.venue-image {
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.venue-name{
+  font-style: italic;
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+.venue-details{
+  font-size: 24px; /* Adjust the value to your desired size */
+}
+
+.birthday-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 50px;
+  
+}
+
+.birthday-button:hover{
+  background-color: orange;
+}
+
+/*Wedding CSS code*/
+
+.wedding-page {
+  background-image: url("./images/Gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color : black;
+  padding: 20px;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+
+.page2-header {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+.wedding-images {
+  display: flex;
+  gap: 90px;
+  margin-top: 50px;
+  margin-bottom: 150px;
+  margin-left: 50px;
+}
+
+.wedding-image {
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.wedding-name{
+  font-style: italic;
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+
+.wedding-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 50px;
+  
+}
+
+.wedding-button:hover{
+  background-color: orange;
+}
+
+
+/*Corporate*/
+
+.corporate-page {
+  background-image: url("./images/Gold.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color : black;
+  padding: 20px;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+
+.page-header3 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+.corporate-images {
+  display: flex;
+  gap: 90px;
+  margin-top: 50px;
+  margin-bottom: 150px;
+  margin-left: 50px;
+}
+
+.corporate-image {
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.corporate-name{
+  font-style: italic;
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+
+.corporate-button {
+  padding: 15px 30px;
+  background-color:black;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-right: 50px;
+  
+}
+
+.corporate-button:hover{
+  background-color: orange;
+}
+
+
+/*Position of Home Page buttons*/
+\.app header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  height: 120px;
+  width: 120px;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 150px;
+}
+
+.nav-center ul {
+  list-style: none;
+  margin: 10px;
+  padding: 0px;
+  display: flex;
+  gap: 100px;
+}
+
+.nav-center li {
+  font-size: 18px;
+}
+
+
+.log-button {
+  background-color: green;
+  color: white;
+  padding: 20px 30px;
+  border: none;
+  cursor: pointer;
+  position: absolute; /* Allows positioning relative to the nearest positioned ancestor */
+  top: 85px; /* Adjust the vertical positioning */
+  right: 50px; /* Adjust the horizontal positioning to the right */
+  border-radius: 30px; /* Optional: adds rounded corners */
+}
+
+.log-button:hover{
+  background-color: orange;
+}
+
+/*Login  Button*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-bottom: 10px;
+}
+
+form input {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+form button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+/*Book Now Page*/
+
+.book-now-page {
+  background-color: #f0f8ff; /* Change this color as per your preference */
+  min-height: 100vh; /* Ensure the page takes the full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.book-now-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333; /* Heading color */
+}
+
+.book-now-page form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.book-now-page label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.book-now-page input, 
+.book-now-page select, 
+.book-now-page textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.book-now-page button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-now-page button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.success-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-message-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.success-message-content h2 {
+  font-size: 2rem;
+  color: green;
+}
+
+.success-message-content p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.success-message-content button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
+.services-page {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.header-container {
+  margin-bottom: 40px; /* Add some space between the header and the service items */
+}
+
+.header-container h2 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.explore-all-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.explore-all-button a {
+  color: white;
+  text-decoration: none;
+}
+
+.service-images {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px; /* Adds space between the service items */
+}
+
+.service-item {
+  max-width: 300px;
+  text-align: center;
+}
+
+.service-heading {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.service-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px; /* Adds gap between image and the Explore button */
+  border-radius: 10px;
+}
+
+.service-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.service-button:hover {
+  background-color: orange;
+}
+
+
+
+
+.about-us-page {
+  padding: 50px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.about-content {
+  flex: 1;
+  max-width: 500px;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.about-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-image {
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+
+
+
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 30px; /* Space to match the login button spacing */
+}
+
+.user-dropdown button {
+  padding: 15px 30px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.user-dropdown button:hover {
+  background-color: darkgreen;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position it below the username button */
+  right: 0;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+  min-width: 125px;
+}
+
+.dropdown-menu button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: left;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f1f1f1;
+}
+
