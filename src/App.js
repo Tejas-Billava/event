@@ -11,11 +11,14 @@ import Service from "./Service";
 import BirthdayPage from "./BirthdayPage";
 import WeddingPage from "./WeddingPage";
 import CorporatePage from "./CorporatePage";
-import CreateOwnEvent from "./CreateOwnEvent";
+// import CreateOwnEvent from "./CreateOwnEvent";
 import ContactUs from "./ContactUs";
 import BookNowPage from "./BookNowPage";
 import SignUpPage from "./SignUpPage";
 import LoginPage from "./LoginPage";
+import axios from "axios";
+import { openDB } from "idb";
+import Cookies from "js-cookie"; // Import js-cookie
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -23,13 +26,73 @@ function App() {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // Handle sessionStorage, localStorage and IndexedDB
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    const username = urlParams.get("username");
+
+    const storedToken =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const storedUsername =
+      localStorage.getItem("username") || sessionStorage.getItem("username");
+
+    if (storedToken && storedUsername) {
+      setUser(storedUsername); // Set the user to the stored username
+    } else {
+      setUser(null); // Optionally handle if no user is logged in
+    }
+
     if (token && username) {
+      // Store in both localStorage, sessionStorage, and IndexedDB
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      sessionStorage.setItem("token", token); // Save to sessionStorage
+      sessionStorage.setItem("username", username); // Save to sessionStorage
+      saveUserToDB(username, token); // Store to IndexedDB
       setUser(username);
+      Cookies.set("token", token, { expires: 7 });
+      Cookies.set("username", username, { expires: 7 });
+      window.history.replaceState(null, null, window.location.pathname); // Clean URL
     }
   }, []);
+
+  // IndexedDB for storing user data
+  const initDB = async () => {
+    const db = await openDB("EventifyDB", 1, {
+      upgrade(db) {
+        if (!db.objectStoreNames.contains("users")) {
+          db.createObjectStore("users", { keyPath: "username" }); // Create store for user data with username as key
+        }
+      },
+    });
+    return db;
+  };
+
+  const saveUserToDB = async (username, token) => {
+    const db = await initDB();
+    await db.put("users", { username, token }); // Insert or update user data
+  };
+
+  const getUserFromDB = async (username) => {
+    const db = await initDB();
+    const user = await db.get("users", username); // Get user data using username
+    return user; // Returns the user data
+  };
+
+  const updateUserTokenInDB = async (username, newToken) => {
+    const db = await initDB();
+    const user = await db.get("users", username); // Get current user
+    if (user) {
+      user.token = newToken; // Update the token
+      await db.put("users", user); // Save the updated user back into IndexedDB
+    }
+  };
+
+  const deleteUserFromDB = async (username) => {
+    const db = await initDB();
+    await db.delete("users", username); // Delete user by username
+  };
 
   const openLoginModal = () => setIsLoginOpen(true);
   const closeLoginModal = () => setIsLoginOpen(false);
@@ -45,8 +108,14 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     setDropdownOpen(false);
+    // Clear both localStorage, sessionStorage and IndexedDB
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
+    Cookies.remove("token");
+    Cookies.remove("username");
+    deleteUserFromDB(user); // Delete from IndexedDB
   };
 
   const handleSignup = async (username, email, password) => {
@@ -93,8 +162,12 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
+        // Save to both localStorage, sessionStorage, and IndexedDB
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.username);
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("username", data.username);
+        saveUserToDB(data.username, data.token); // Store to IndexedDB
         handleLoginSuccess(data.username);
       } else {
         const errorData = await response.json();
@@ -137,13 +210,19 @@ function App() {
                 {user} ▼
               </button>
               {dropdownOpen && (
-                <div className="dropdown-menu ">
+                <div className="dropdown-menu">
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </div>
           ) : (
-            <button className="log-button" onClick={openLoginModal}>
+            <button
+              className="log-button"
+              onClick={() =>
+                (window.location.href =
+                  "http://localhost:5000/api/auth/googlelogin")
+              }
+            >
               Login
             </button>
           )}
@@ -155,11 +234,7 @@ function App() {
           <Link to="/bookings">
             <button className="plan-button">Book Now</button>
           </Link>
-          {!user && (
-            <button className="plan-button" onClick={openSignupModal}>
-              Sign Up
-            </button>
-          )}
+
           <div className="detail">
             <h2>+91 9820308567</h2>
             <h3>eventify@gmail.com</h3>
@@ -201,89 +276,15 @@ function App() {
       </div>
 
       <Routes>
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/service" element={<Service />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/service" element={<Service />} />
         <Route path="/birthday" element={<BirthdayPage />} />
         <Route path="/wedding" element={<WeddingPage />} />
         <Route path="/corporate" element={<CorporatePage />} />
-        <Route path="/createownevent" element={<CreateOwnEvent />} />
+        {/* <Route path="/createevent" element={<CreateOwnEvent />} /> */}
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/bookings" element={<BookNowPage />} />
       </Routes>
-
-      {isLoginOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeLoginModal}>
-              &times;
-            </span>
-            <h2>Login</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleLogin(e.target.email.value, e.target.password.value);
-              }}
-            >
-              <label htmlFor="login-email">Email:</label>
-              <input type="email" id="login-email" name="email" required />
-              <label htmlFor="login-password">Password:</label>
-              <input
-                type="password"
-                id="login-password"
-                name="password"
-                required
-              />
-              <button type="submit">Login</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isSignupOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeSignupModal}>
-              &times;
-            </span>
-            <h2>Sign Up</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSignup(
-                  e.target.signupUsername.value,
-                  e.target.signupEmail.value,
-                  e.target.signupPassword.value
-                );
-              }}
-            >
-              <label htmlFor="signup-username">Name:</label>
-              <input
-                type="text"
-                id="signup-username"
-                name="signupUsername"
-                required
-              />
-              <label htmlFor="signup-email">Email:</label>
-              <input
-                type="email"
-                id="signup-email"
-                name="signupEmail"
-                required
-              />
-              <label htmlFor="signup-password">Password:</label>
-              <input
-                type="password"
-                id="signup-password"
-                name="signupPassword"
-                required
-              />
-              <button type="submit">Sign Up</button>
-            </form>
-          </div>
-        </div>
-      )}
     </BrowserRouter>
   );
 }

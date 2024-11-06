@@ -7,15 +7,34 @@ const User = require("./models/User");
 const BookNow = require("./models/BookNow");
 const ContactUs = require("./models/ContactUs");
 const Venue = require("./models/Venue");
+const OwnEvent = require("./models/OwnEvent");
 const connectDB = require("./db");
 
-require("dotenv").config();
+const session = require("express-session"); // Add express-session
+
+const passport = require("passport");
+require("./config/passport"); // Import the Passport configuration
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // This is essential to allow cookies to be sent from frontend
+  })
+);
 app.use(bodyParser.json());
 app.use(express.json());
-
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // You should define a session secret in .env
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 const JWT_SECRET = process.env.JWT_SECRET;
 
 connectDB();
@@ -67,6 +86,10 @@ app.post("/api/auth/login", async (req, res) => {
       JWT_SECRET,
       { expiresIn: "1h" }
     );
+    res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
+    res.cookie("username", user.username, { httpOnly: true, maxAge: 3600000 });
+
+    req.session.user = user;
 
     res.status(200).json({
       token,
@@ -78,6 +101,39 @@ app.post("/api/auth/login", async (req, res) => {
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
+// google auth
+
+// Redirect the user to Google for authentication
+app.get(
+  "/api/auth/googlelogin",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
+
+// Google callback route
+app.get(
+  "/api/auth/google/callback",
+
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    const token = jwt.sign(
+      { id: req.user._id, username: req.user.username, email: req.user.email },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // res.status(200).json({
+    //   token,
+    //   username: req.user.username,
+    //   message: "Google login successful",
+    // });
+    res.redirect(
+      `http://localhost:3000/?token=${token}&username=${req.user.username}`
+    );
+  }
+);
 
 // Venue fetch route
 app.get("/api/venues", async (req, res) => {
@@ -145,6 +201,47 @@ app.post("/api/contact", async (req, res) => {
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
+// //own event
+// app.post("/api/create-event/create-event", async (req, res) => {
+//   const {
+//     title,
+//     description,
+//     date,
+//     hour,
+//     minute,
+//     duration,
+//     location,
+//     files,
+//     notify,
+//   } = req.body;
+
+//   // Create a new event document
+//   const newEvent = new OwnEvent({
+//     title,
+//     description,
+//     date,
+//     hour,
+//     minute,
+//     duration,
+//     location,
+//     files,
+//     notify,
+//   });
+
+//   try {
+//     // Save event to database
+//     await newEvent.save();
+//     res
+//       .status(200)
+//       .json({ status: "success", message: "Event created successfully!" });
+//   } catch (error) {
+//     console.error(error);
+//     res
+//       .status(500)
+//       .json({ status: "error", message: "Failed to create the event." });
+//   }
+// });
 
 const PORT = 5000;
 app.listen(PORT, () => {

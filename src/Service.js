@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import service1 from "./images/Wedding2.jpeg";
 import service2 from "./images/Birthday.avif";
 import service3 from "./images/Corporate.jpg";
-import CreateOwnEvent from "./CreateOwnEvent";
+// import CreateOwnEvent from "./CreateOwnEvent";
 const Service = () => {
   return (
     <div id="services" className="services-page">
       <div className="header-container">
         <h2>Our Services</h2>
-        <button className="explore-all-button">
+        {/* <button className="explore-all-button">
           <Link to="/CreateOwnEvent">Create Your Own Event</Link>
-        </button>
+        </button> */}
       </div>
 
       <div className="service-images">
